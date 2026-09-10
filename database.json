@@ -1,0 +1,158 @@
+{
+  "authors": [
+    {
+      "id": 1,
+      "name": "mohammad",
+      "age": 45
+    },
+    {
+      "id": 3,
+      "name": "mmb",
+      "age": 45
+    },
+    {
+      "id": 4,
+      "name": "shahy",
+      "age": 45
+    },
+    {
+      "id": 5,
+      "name": "may",
+      "age": 45
+    }
+  ],
+  "errors": [
+    {
+      "message": "Cannot set property query of #<IncomingMessage> which has only a getter",
+      "method": "GET",
+      "path": "/authors?search=ahmed",
+      "date": "2026-09-08T13:10:16.539Z"
+    },
+    {
+      "message": "Cannot set property query of #<IncomingMessage> which has only a getter",
+      "method": "GET",
+      "path": "/authors?search=ahmed",
+      "date": "2026-09-08T13:10:28.194Z"
+    },
+    {
+      "message": "Unexpected token '}', \"\r\n}\" is not valid JSON",
+      "method": "POST",
+      "path": "/authors?search=ahmed",
+      "date": "2026-09-08T13:15:28.776Z"
+    },
+    {
+      "message": "Unexpected token '}', \"\r\n}\" is not valid JSON",
+      "method": "GET",
+      "path": "/authors?search=ahmed",
+      "date": "2026-09-08T13:15:37.156Z"
+    },
+    {
+      "message": "[\n  {\n    \"expected\": \"number\",\n    \"code\": \"invalid_type\",\n    \"received\": \"NaN\",\n    \"path\": [\n      \"age\"\n    ],\n    \"message\": \"Invalid input: expected number, received NaN\"\n  }\n]",
+      "method": "POST",
+      "path": "/authors?search=ahmed",
+      "date": "2026-09-08T13:21:20.660Z"
+    },
+    {
+      "message": "[\n  {\n    \"expected\": \"number\",\n    \"code\": \"invalid_type\",\n    \"received\": \"NaN\",\n    \"path\": [\n      \"age\"\n    ],\n    \"message\": \"Invalid input: expected number, received NaN\"\n  }\n]",
+      "method": "POST",
+      "path": "/authors?search=ahmed",
+      "date": "2026-09-08T13:22:38.109Z"
+    },
+    {
+      "message": "Expected ',' or '}' after property value in JSON at position 26 (line 4 column 4)",
+      "method": "POST",
+      "path": "/authors?search=ahmed",
+      "date": "2026-09-08T13:22:51.331Z"
+    },
+    {
+      "message": "Author not found",
+      "method": "GET",
+      "path": "/authors/1?search=ahmed",
+      "date": "2026-09-09T13:11:01.034Z"
+    },
+    {
+      "message": "Author not found",
+      "method": "GET",
+      "path": "/authors/2?search=ahmed",
+      "date": "2026-09-09T13:11:54.753Z"
+    },
+    {
+      "message": "Author not found",
+      "method": "GET",
+      "path": "/authors/2?search=ahmed",
+      "date": "2026-09-09T13:22:29.179Z"
+    },
+    {
+      "message": "Author not found",
+      "method": "GET",
+      "path": "/authors/1?search=ahmed",
+      "date": "2026-09-09T13:23:09.259Z"
+    },
+    {
+      "message": "Author not found",
+      "method": "GET",
+      "path": "/authors/1?search=ahmed",
+      "date": "2026-09-09T13:24:59.086Z"
+    },
+    {
+      "message": "Author not found",
+      "method": "PUT",
+      "path": "/authors/4?search=ahmed",
+      "date": "2026-09-09T13:28:01.270Z"
+    },
+    {
+      "message": "Author not found",
+      "method": "PUT",
+      "path": "/authors/4?search=ahmed",
+      "date": "2026-09-09T14:16:04.911Z"
+    },
+    {
+      "message": "Author not found",
+      "method": "DELETE",
+      "path": "/authors/1?search=ahmed",
+      "date": "2026-09-09T14:17:03.481Z"
+    },
+    {
+      "message": "Author not found",
+      "method": "DELETE",
+      "path": "/authors/2?search=ahmed",
+      "date": "2026-09-09T14:17:25.675Z"
+    },
+    {
+      "message": "Author not found",
+      "method": "DELETE",
+      "path": "/authors/2?search=ahmed",
+      "date": "2026-09-09T14:29:46.685Z"
+    },
+    {
+      "message": "[\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"name\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"number\",\n    \"code\": \"invalid_type\",\n    \"received\": \"NaN\",\n    \"path\": [\n      \"age\"\n    ],\n    \"message\": \"Invalid input: expected number, received NaN\"\n  }\n]",
+      "method": "PUT",
+      "path": "/authors/2?search=ahmed",
+      "date": "2026-09-09T14:29:56.216Z"
+    },
+    {
+      "message": "[\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]",
+      "method": "PUT",
+      "path": "/authors/2?search=ahmed",
+      "date": "2026-09-09T14:30:08.202Z"
+    },
+    {
+      "message": "[\n  {\n    \"expected\": \"number\",\n    \"code\": \"invalid_type\",\n    \"received\": \"NaN\",\n    \"path\": [\n      \"age\"\n    ],\n    \"message\": \"Invalid input: expected number, received NaN\"\n  }\n]",
+      "method": "PUT",
+      "path": "/authors/2?search=ahmed",
+      "date": "2026-09-09T14:31:25.433Z"
+    },
+    {
+      "message": "Author not found",
+      "method": "PUT",
+      "path": "/authors/2?search=ahmed",
+      "date": "2026-09-09T14:32:35.530Z"
+    },
+    {
+      "message": "Author not found",
+      "method": "PUT",
+      "path": "/authors/2?search=ahmed",
+      "date": "2026-09-09T14:36:23.281Z"
+    }
+  ]
+}
