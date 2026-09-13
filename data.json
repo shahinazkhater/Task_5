@@ -1,15 +1,10 @@
-{"users":[{"id":1,"name":"eyad"},
-{"id":2,"name":"marawan mousa"},
-{"name":"MARAWAN PABLO","id":"6063724"},
-{"name":"habiba","id":"8629054"},
-{"name":"mahmoud","id":"867063"}],
-
-"books":[],"orders":[],
-
-
-
-"authors":[{"name":"mohamed","book":"Utopia","id":2},{"name":"ahmed","book":"Ma Waraa Al Tabiaa","id":3},{"name":"mohamed","book":"Palace Walk","id":4},{"name":"mam","id":"7927048"},{"name":"mmmmmm","id":"8227505"}]
-
-,
-"errors":[]
+{
+  "users": [
+    {
+      "username": "shahy",
+      "email": "shahinazkhater43@gmail.com",
+      "password": "$2b$10$e2s3YCzsTKfWpuWi85uaMeliJPTdO.ZgepnRLt6QVTCknGv9jfg8a",
+      "id": "9973830"
+    }
+  ]
 }

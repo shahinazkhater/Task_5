@@ -1,81 +1,130 @@
 import fs from "fs/promises";
+import path from "path";
 
-const DB_FILE = "./database.json";
+const dbPath = path.join(import.meta.dirname, "data.json");
 
-export const createDB = () => {
-  const getDB = async () => {
-    try {
-      const data = await fs.readFile(DB_FILE, "utf-8");
-      return JSON.parse(data);
-    } catch (error) {
-      return {
-        authors: [],
-        errors: []
-      };
-    }
-  };
-
-  const saveDB = async (data) => {
-    await fs.writeFile(
-      DB_FILE,
-      JSON.stringify(data, null, 2)
-    );
-  };
-
+export function createDB() {
   return {
-    getAll: async (collection) => {
-      const db = await getDB();
-      return db[collection] || [];
+    async getById(resource, id) {
+      const data = await fs.readFile(dbPath, {
+        encoding: "utf-8",
+      });
+
+      const json = JSON.parse(data);
+
+      return json[resource].find(
+        (x) => String(x.id) === String(id)
+      );
     },
 
-    insert: async (collection, item) => {
-      const db = await getDB();
+    async getByField(resource, field, value) {
+      const data = await fs.readFile(dbPath, {
+        encoding: "utf-8",
+      });
 
-      if (!db[collection]) {
-        db[collection] = [];
-      }
+      const json = JSON.parse(data);
 
-      db[collection].push(item);
-
-      await saveDB(db);
-
-      return item;
+      return json[resource].find(
+        (x) => x[field] === value
+      );
     },
 
-    update: async (collection, id, updatedItem) => {
-      const db = await getDB();
+    async getAll(resource) {
+      const data = await fs.readFile(dbPath, {
+        encoding: "utf-8",
+      });
 
-      const index = db[collection].findIndex(
-        (item) => item.id === id
+      const json = JSON.parse(data);
+
+      return json[resource];
+    },
+
+    async create(resource, obj) {
+      const data = await fs.readFile(dbPath, {
+        encoding: "utf-8",
+      });
+
+      const json = JSON.parse(data);
+
+      const newObj = {
+        ...obj,
+        id: getId(),
+      };
+
+      const newResource = [
+        ...json[resource],
+        newObj,
+      ];
+
+      const newData = {
+        ...json,
+        [resource]: newResource,
+      };
+
+      await fs.writeFile(
+        dbPath,
+        JSON.stringify(newData, null, 2)
       );
 
-      if (index === -1) {
-        return null;
-      }
-
-      db[collection][index] = updatedItem;
-
-      await saveDB(db);
-
-      return updatedItem;
+      return newObj;
     },
 
-    delete: async (collection, id) => {
-      const db = await getDB();
+    async update(resource, id, updates) {
+      const data = await fs.readFile(dbPath, {
+        encoding: "utf-8",
+      });
 
-      const index = db[collection].findIndex(
-        (item) => item.id === id
+      const json = JSON.parse(data);
+
+      const newResource = json[resource].map((x) => {
+        if (x.id != id) {
+          return x;
+        }
+
+        return {
+          ...x,
+          ...updates,
+          id: x.id,
+        };
+      });
+
+      const newData = {
+        ...json,
+        [resource]: newResource,
+      };
+
+      await fs.writeFile(
+        dbPath,
+        JSON.stringify(newData, null, 2)
+      );
+    },
+
+    async delete(resource, id) {
+      const data = await fs.readFile(dbPath, {
+        encoding: "utf-8",
+      });
+
+      const json = JSON.parse(data);
+
+      const newResource = json[resource].filter(
+        (x) => x.id != id
       );
 
-      if (index === -1) {
-        return null;
-      }
+      const newData = {
+        ...json,
+        [resource]: newResource,
+      };
 
-      const deleted = db[collection].splice(index, 1)[0];
-
-      await saveDB(db);
-
-      return deleted;
-    }
+      await fs.writeFile(
+        dbPath,
+        JSON.stringify(newData, null, 2)
+      );
+    },
   };
-};
+}
+
+function getId() {
+  return String(
+    Math.floor(Math.random() * 10000000)
+  );
+}

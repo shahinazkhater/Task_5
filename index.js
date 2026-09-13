@@ -1,26 +1,36 @@
+
+
 import express from "express";
+import { authRouter } from "./routes/auth.routes.js";
+import { homeRouter } from "./routes/home.routes.js";
 
-import authorsRouter from "./routes/authors.route.js";
 
-import { errorHandler } from "./middlewares/errorHandler.js";
+
+import "dotenv/config";
+import cookieParser from "cookie-parser";
+
 
 const app = express();
 
-
-// Middleware for JSON body
 app.use(express.json());
+app.use(cookieParser());
 
+app.use((req, res, next) => {
+  console.log(new Date().toLocaleString(), req.method, req.url);
+  next();
+});
 
-// Authors Router
-app.use("/authors", authorsRouter);
+app.use("/auth", authRouter);
+app.use("/api", homeRouter);
 
+app.use(express.static("pages"));
 
-// Global Error Handler
-app.use(errorHandler);
+app.use((err, req, res, next) => {
+  console.log("err", err);
+  res.status(500).json({ error: "something went wrong" });
+});
+const PORT = process.env.PORT|| 3000;
 
-
-const PORT = 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(3000, () => {
+  console.log("listening on port 3000");
 });
