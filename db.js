@@ -3,128 +3,95 @@ import path from "path";
 
 const dbPath = path.join(import.meta.dirname, "data.json");
 
+function getId() {
+  return String(Math.floor(1000000 + Math.random() * 9000000));
+}
+
 export function createDB() {
   return {
     async getById(resource, id) {
-      const data = await fs.readFile(dbPath, {
-        encoding: "utf-8",
-      });
-
+      const data = await fs.readFile(dbPath, { encoding: "utf-8" });
       const json = JSON.parse(data);
-
-      return json[resource].find(
-        (x) => String(x.id) === String(id)
-      );
-    },
-
-    async getByField(resource, field, value) {
-      const data = await fs.readFile(dbPath, {
-        encoding: "utf-8",
-      });
-
-      const json = JSON.parse(data);
-
-      return json[resource].find(
-        (x) => x[field] === value
-      );
+      return json[resource].find((x) => String(x.id) === String(id));
     },
 
     async getAll(resource) {
-      const data = await fs.readFile(dbPath, {
-        encoding: "utf-8",
-      });
-
+      const data = await fs.readFile(dbPath, { encoding: "utf-8" });
       const json = JSON.parse(data);
-
       return json[resource];
     },
 
-    async create(resource, obj) {
-      const data = await fs.readFile(dbPath, {
-        encoding: "utf-8",
+    async getOne(resource, query) {
+      const data = await fs.readFile(dbPath, { encoding: "utf-8" });
+      const json = JSON.parse(data);
+      return json[resource].find((x) => {
+        return Object.keys(query).every(
+          (key) => String(x[key]) === String(query[key])
+        );
       });
+    },
 
+    async create(resource, obj) {
+      const data = await fs.readFile(dbPath, { encoding: "utf-8" });
       const json = JSON.parse(data);
 
-      const newObj = {
-        ...obj,
-        id: getId(),
-      };
+      const newObj = { ...obj, id: getId() };
+      const newResource = [...json[resource], newObj];
+      const newData = { ...json, [resource]: newResource };
 
-      const newResource = [
-        ...json[resource],
-        newObj,
-      ];
-
-      const newData = {
-        ...json,
-        [resource]: newResource,
-      };
-
-      await fs.writeFile(
-        dbPath,
-        JSON.stringify(newData, null, 2)
-      );
-
+      await fs.writeFile(dbPath, JSON.stringify(newData, null, 2));
       return newObj;
     },
 
-    async update(resource, id, updates) {
-      const data = await fs.readFile(dbPath, {
-        encoding: "utf-8",
-      });
-
+    async update(resource, id, obj) {
+      const data = await fs.readFile(dbPath, { encoding: "utf-8" });
       const json = JSON.parse(data);
 
+      let updated = null;
       const newResource = json[resource].map((x) => {
-        if (x.id != id) {
-          return x;
+        if (String(x.id) === String(id)) {
+          updated = { ...x, ...obj, id: x.id };
+          return updated;
         }
-
-        return {
-          ...x,
-          ...updates,
-          id: x.id,
-        };
+        return x;
       });
 
-      const newData = {
-        ...json,
-        [resource]: newResource,
-      };
-
-      await fs.writeFile(
-        dbPath,
-        JSON.stringify(newData, null, 2)
-      );
+      const newData = { ...json, [resource]: newResource };
+      await fs.writeFile(dbPath, JSON.stringify(newData, null, 2));
+      return updated;
     },
 
     async delete(resource, id) {
-      const data = await fs.readFile(dbPath, {
-        encoding: "utf-8",
-      });
-
+      const data = await fs.readFile(dbPath, { encoding: "utf-8" });
       const json = JSON.parse(data);
 
       const newResource = json[resource].filter(
-        (x) => x.id != id
+        (x) => String(x.id) !== String(id)
       );
+      const newData = { ...json, [resource]: newResource };
 
-      const newData = {
-        ...json,
-        [resource]: newResource,
-      };
+      await fs.writeFile(dbPath, JSON.stringify(newData, null, 2));
+      return true;
+    },
 
-      await fs.writeFile(
-        dbPath,
-        JSON.stringify(newData, null, 2)
-      );
+    async deleteWhere(resource, query) {
+      const data = await fs.readFile(dbPath, { encoding: "utf-8" });
+      const json = JSON.parse(data);
+
+      const newResource = json[resource].filter((x) => {
+        return !Object.keys(query).every(
+          (key) => String(x[key]) === String(query[key])
+        );
+      });
+
+      const newData = { ...json, [resource]: newResource };
+      await fs.writeFile(dbPath, JSON.stringify(newData, null, 2));
+      return true;
+    },
+
+    async raw() {
+      const data = await fs.readFile(dbPath, { encoding: "utf-8" });
+      return JSON.parse(data);
     },
   };
-}
-
-function getId() {
-  return String(
-    Math.floor(Math.random() * 10000000)
-  );
 }

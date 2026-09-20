@@ -1,10 +1,72 @@
 {
-  "users": [
+  "auth_users": [
     {
-      "username": "shahy",
+      "username": "shahinazkhater",
       "email": "shahinazkhater43@gmail.com",
-      "password": "$2b$10$e2s3YCzsTKfWpuWi85uaMeliJPTdO.ZgepnRLt6QVTCknGv9jfg8a",
-      "id": "9973830"
+      "passwordHash": "$2b$10$v5yZy6C7YWSa5WN4bJ1Em.mdwsc6EJA/lGwO3dUqMgexBrlgJNUvi",
+      "role": "customer",
+      "id": "9914979"
+    },
+    {
+      "username": "shahinazkhater",
+      "email": "khatershahy4@gmail.com",
+      "passwordHash": "$2b$10$Mc64WlS2LiNMfNOXHaD6BO4./sEhGUtDEfsdSAJy2IhIW0cq1KVS.",
+      "role": "merchant",
+      "id": "4143148"
+    },
+    {
+      "username": "naghamkhater",
+      "email": "khaternagham269@gmail.com",
+      "passwordHash": "$2b$10$N8t.tLXEb.KeN53QkVYRZ.kK2WW/3u0cbPXbpJ7Y6v.iBVy5d8WIy",
+      "role": "customer",
+      "id": "4465210"
+    },
+    {
+      "username": "testuser",
+      "email": "test@example.com",
+      "passwordHash": "$2b$10$FfEX832NszFXhphzCZc4V.7zv6iHnGL8XcpldjbG9p8q6HMMoyYHG",
+      "role": "customer",
+      "id": "4438242"
+    }
+  ],
+  "products": [
+    {
+      "name": "Bike",
+      "description": "Mountain bike suitable for sports and outdoor activities.",
+      "price": 5000,
+      "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Mountain%20bicycle.jpg",
+      "id": "5411816"
+    }
+  ],
+  "carts": [
+    {
+      "userId": "4465210",
+      "products": [],
+      "id": "6275192"
+    },
+    {
+      "userId": "4438242",
+      "products": [],
+      "id": "4486560"
+    }
+  ],
+  "orders": [
+    {
+      "userId": "4438242",
+      "products": [
+        {
+          "id": "5411816",
+          "name": "Bike",
+          "description": "Mountain bike suitable for sports and outdoor activities.",
+          "price": 5000,
+          "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Mountain%20bicycle.jpg",
+          "quantity": 2
+        }
+      ],
+      "total": 10000,
+      "status": "pending",
+      "createdAt": "2026-09-20T08:41:39.084Z",
+      "id": "3879992"
     }
   ]
 }
